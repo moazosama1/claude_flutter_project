@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-
 import '../../generated/l10n.dart';
 import '../constants/const_keys.dart';
 import '../manager/secure_storage_manager.dart';
@@ -14,25 +13,26 @@ import 'core_state.dart';
 class CoreCubit extends Cubit<CoreState> {
   final SecureStorageManager _storageManager;
 
-  CoreCubit(this._storageManager) : super(const CoreState()){
+  CoreCubit(this._storageManager) : super(const CoreState()) {
     _init();
   }
 
-  void doIntent(CoreEvents events) {
-    switch (events) {
+  void doIntent(CoreEvents event) {
+    switch (event) {
       case LoadLocaleCoreEvent():
         _loadLocale();
       case ToggleLocaleCoreEvent():
         _toggleLocale();
       case ChangeLocaleCoreEvent():
-        _changeLocale(events.locale);
+        _changeLocale(event.locale);
+      case LogoutCoreEvent():
+        // No-op until real auth is added. Kept so the sealed switch stays exhaustive.
+        break;
     }
   }
 
   Future<void> _init() async {
-    Future.wait([
-      _loadLocale(),
-    ]);
+    await Future.wait([_loadLocale()]);
   }
 
   Future<void> _loadLocale() async {
@@ -58,10 +58,8 @@ class CoreCubit extends Cubit<CoreState> {
 
   Future<void> _toggleLocale() async {
     final currentIndex = supportedLocales.indexOf(currentLocale);
-
     final nextIndex = (currentIndex + 1) % supportedLocales.length;
     final nextLocale = supportedLocales[nextIndex];
-
     await _changeLocale(nextLocale);
   }
 

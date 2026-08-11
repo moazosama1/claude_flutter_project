@@ -1,18 +1,34 @@
-import 'package:initialize_project/core/constants/app_theme.dart';
-import 'package:initialize_project/core/di/di.dart';
-import 'package:initialize_project/core/router/app_router.dart';
-import 'package:initialize_project/core/router/route_names.dart';
-import 'package:initialize_project/generated/l10n.dart';
-import 'package:initialize_project/my_bloc_observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:initialize_project/core/constants/app_theme.dart';
+import 'package:initialize_project/core/constants/const_keys.dart';
+import 'package:initialize_project/core/di/di.dart';
+import 'package:initialize_project/core/manager/secure_storage_manager.dart';
+import 'package:initialize_project/core/responsive/app_measurements.dart';
+import 'package:initialize_project/core/responsive/app_responsive.dart';
+import 'package:initialize_project/core/router/app_router.dart';
+import 'package:initialize_project/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+// import 'package:initialize_project/my_bloc_observer.dart';
+
+import 'core/core_cubit/core_cubit.dart';
+import 'core/core_cubit/core_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await configureDependencies();
-  Bloc.observer = MyBlocObserver();
+
+  final prefs = getIt<SharedPreferences>();
+  final isFirstRun = prefs.getBool(ConstKeys.kIsFirstRun) ?? true;
+  if (isFirstRun) {
+    try {
+      await getIt<SecureStorageManager>().clear();
+    } catch (_) {}
+    await prefs.setBool(ConstKeys.kIsFirstRun, false);
+  }
+
+  // Bloc.observer = MyBlocObserver();
   runApp(const MyApp());
 }
 
@@ -21,28 +37,29 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (context, child) {
-        return MaterialApp(
-          title: AppLocalizations().appName,
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme.lightTheme,
-          onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: RouteNames.home,
-          localizationsDelegates: [
-            AppLocalizations.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-            GlobalCupertinoLocalizations.delegate,
-          ],
-          supportedLocales: AppLocalizations.delegate.supportedLocales,
-          locale: const Locale("en"),
-        );
-      },
+    return BlocProvider(
+      create: (context) => getIt<CoreCubit>(),
+      child: BlocBuilder<CoreCubit, CoreState>(
+        builder: (context, state) {
+          return AppResponsive(
+            width: AppMeasurements.desktopScreenWidth,
+            child: MaterialApp.router(
+              title: AppLocalizations().appName,
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.lightTheme,
+              routerConfig: AppRouter.router,
+              localizationsDelegates: const [
+                AppLocalizations.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
+              supportedLocales: AppLocalizations.delegate.supportedLocales,
+              locale: const Locale("ar"),
+            ),
+          );
+        },
+      ),
     );
   }
 }
-

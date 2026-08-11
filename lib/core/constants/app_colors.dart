@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 abstract class AppColors {
-  static MaterialColor white = const MaterialColor(0xFFF9F9F9, <int, Color>{
+  // Neutral - #F8FAFC
+  static MaterialColor white = const MaterialColor(0xFFF8FAFC, <int, Color>{
     10: Color(0xFFfefefe),
     20: Color(0xFFfdfdfd),
     30: Color(0xFFfcfcfc),
@@ -10,39 +11,63 @@ abstract class AppColors {
     60: Color(0xFFd0d0d0),
     70: Color(0xFFa6a6a6),
     80: Color(0xFF7d7d7d),
-    90: Color(0xFF535353),
+    90: Color(0xFF647488),
     100: Color(0xFF323232),
   });
 
-  static MaterialColor mainColor = const MaterialColor(0xFFD21E6A, <int, Color>{
-    10: Color(0xFFf6d2e1),
-    20: Color(0xFFf0b4cd),
-    30: Color(0xFFe98fb5),
-    40: Color(0xFFe1699c),
-    50: Color(0xFFda4483),
-    60: Color(0xFFaf1958),
-    70: Color(0xFF8c1447),
-    80: Color(0xFF690f35),
-    90: Color(0xFF460a23),
-    100: Color(0xFF2a0615),
+  // Primary - #0087C0 (Blue)
+  static MaterialColor mainColor = const MaterialColor(0xFF324CF5, <int, Color>{
+    10: Color(0xFFd9f0f9),
+    20: Color(0xFFb3e1f3),
+    30: Color(0xFF8dd2ed),
+    40: Color(0xFF67c3e7),
+    50: Color(0xFF41b4e1),
+    60: Color(0xFF0087c0),
+    70: Color(0xFF006b99),
+    80: Color(0xFF004f72),
+    90: Color(0xFF00334b),
+    100: Color(0xFF001724),
   });
 
-  static MaterialColor black = const MaterialColor(0xFF0C1015, <int, Color>{
-    10: Color(0xFFcecfd0),
-    20: Color(0xFFAEAFB1),
-    30: Color(0xFF86888a),
-    40: Color(0xFF5d6063),
-    50: Color(0xFF34383c),
-    60: Color(0xFF0a0d12),
-    70: Color(0xFF080b0e),
-    80: Color(0xFF06080b),
-    90: Color(0xFF040507),
-    100: Color(0xFF020304),
+  // Secondary - #647488 (Gray-blue)
+  static MaterialColor black = const MaterialColor(0xFF647488, <int, Color>{
+    10: Color(0xFFe8eaed),
+    20: Color(0xFFd1d5db),
+    30: Color(0xFFbac0ca),
+    40: Color(0xFFa3abb9),
+    50: Color(0xFF8c96a8),
+    60: Color(0xFF647488),
+    70: Color(0xFF525d70),
+    80: Color(0xFF404658),
+    90: Color(0xFF2e2f40),
+    100: Color(0xFF1c1d28),
   });
 
-  static const Color gray = Color(0xFF535353);
+  // Surface colors
+  static const Color surface = Color(0xFFF0F2F5);
+  static const Color surfaceContainerLowest = Color(0xFFFFFFFF);
+  static const Color surfaceContainerLow = Color(0xFFf3f5f7);
+  static const Color surfaceContainerHighest = Color(0xFFfdfdfd);
+  static const Color outlineVariant = Color(0xFFcecfd0);
+  static const Color splashBackground = Color(0xFFe3f2fd);
+
+  static const Color gray = Color(0xFF647488);
   static const Color red = Color(0xffCC1010);
-  static const Color green = Color(0xFF0CB359);
-  static const Color lightPink = Color(0xFFF9ECF0);
+  static const Color green = Color(0xFF0F7F2A);
+  static const Color lightBackground = Color(0xFFF0F2F5);
   static const Color yellow = Color(0xFFC8D444);
+  static const Color gray300 = Color(0xFFE0E0E0);
+  static const Color transparent = Colors.transparent;
+
+  // -- Expenses module colours --------------------------------------------
+  static const Color expenseOrange = Color(0xFFFF5722); // deepOrange
+  static const Color expenseOrangeLight = Color(0xFFFBE9E7);
+  static const Color supplierOrange = Color(0xFFFF6600); // supplier form accent
+  static const Color supplierOrangeLight = Color(0xFFFFF3EB);
+  static const Color supplierPurple = Color(0xFF7B1FA2); // digital payment
+  static const Color supplierPurpleLight = Color(0xFFF3E5F5);
+  static const Color salaryIndigo = Color(0xFF3949AB); // indigo
+  static const Color employeeTeal = Color(0xFF009688); // teal from screenshot
+  static const Color tabBackground = Color(0xFFF5F5F5); // grey[100]
+  static const Color tabSurface = Color(0xFFFFFFFF);
 }
