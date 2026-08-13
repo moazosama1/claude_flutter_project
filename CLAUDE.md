@@ -99,7 +99,7 @@ lib/
 
 ## Available Custom Widgets (`lib/core/custom_widget/`)
 
-`compact_date_picker_dialog`, `custom_date_filter`, `custom_dialog`, `custom_dropdown_field`, `custom_elevated_button_loading`, `custom_loading_indicator`, `custom_screen_wrapper`, `custom_stat_card`, `custom_tab_bar`, `custom_toastification`, `screen_header`. Reach for these before writing new UI primitives.
+`compact_date_picker_dialog`, `custom_date_filter`, `custom_dialog`, `custom_dropdown_field`, `custom_elevated_button_loading`, `custom_loading_indicator`, `custom_screen_wrapper`, `custom_stat_card`, `custom_tab_bar`, `custom_toastification`, `empty_state_view`, `error_state_view`, `screen_header`. Reach for these before writing new UI primitives.
 
 ## Feature Naming (MUST match rulebook)
 

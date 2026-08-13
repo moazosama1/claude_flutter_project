@@ -40,6 +40,8 @@ abstract final class ConstKeys {
   static const String kInstapay = 'instapay';
   static const String kVodafone = 'vodafone';
   static const String kIsFirstRun = 'is_first_run';
+  static const String kThemeMode = 'theme_mode';   // stored ThemeMode.name
+  static const String kCurrency = 'currency_code'; // ISO-4217 code, e.g. 'USD'
   static const String kLitigationSupplierName = 'استقضاء و ورش نحاس';
   static const String kSavedEmails = 'saved_emails';
 }

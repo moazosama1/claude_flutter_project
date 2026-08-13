@@ -1,0 +1,209 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:1713361422733278529",
+      "lastPropertyId": "5:6205677989869327127",
+      "name": "CategoryObject",
+      "properties": [
+        {
+          "id": "1:5860604801761082113",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6949315140657810086",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:4327440044882507150",
+          "name": "iconCodePoint",
+          "type": 6
+        },
+        {
+          "id": "4:9139761031021339737",
+          "name": "colorHex",
+          "type": 9
+        },
+        {
+          "id": "5:6205677989869327127",
+          "name": "typeIndex",
+          "type": 6
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:8130652558896747654",
+      "lastPropertyId": "7:1471122320084845450",
+      "name": "TransactionObject",
+      "properties": [
+        {
+          "id": "1:8061738898339430096",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:8799654828327544631",
+          "name": "amount",
+          "type": 8
+        },
+        {
+          "id": "3:7774621016497573622",
+          "name": "typeIndex",
+          "type": 6
+        },
+        {
+          "id": "4:7549915544418534150",
+          "name": "categoryId",
+          "type": 6
+        },
+        {
+          "id": "5:7521050713955942994",
+          "name": "note",
+          "type": 9
+        },
+        {
+          "id": "6:1114090150101745819",
+          "name": "date",
+          "type": 10
+        },
+        {
+          "id": "7:1471122320084845450",
+          "name": "createdAt",
+          "type": 10
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:4925801016562325082",
+      "lastPropertyId": "3:887989850059834891",
+      "name": "BudgetObject",
+      "properties": [
+        {
+          "id": "1:4719613770799407964",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:6140306023152311851",
+          "name": "categoryId",
+          "type": 6
+        },
+        {
+          "id": "3:887989850059834891",
+          "name": "monthlyLimit",
+          "type": 8
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "5:1555094556629939061",
+      "lastPropertyId": "15:6663994979895907448",
+      "name": "CommitmentObject",
+      "properties": [
+        {
+          "id": "1:5320038501874449620",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:4523522587850060543",
+          "name": "name",
+          "type": 9
+        },
+        {
+          "id": "3:7035686580524072368",
+          "name": "kindIndex",
+          "type": 6
+        },
+        {
+          "id": "4:9187543901774427830",
+          "name": "amount",
+          "type": 8
+        },
+        {
+          "id": "5:2696138811476779700",
+          "name": "frequencyIndex",
+          "type": 6
+        },
+        {
+          "id": "6:1907744505045115105",
+          "name": "startDate",
+          "type": 10
+        },
+        {
+          "id": "7:5954629981775045098",
+          "name": "endDate",
+          "type": 10
+        },
+        {
+          "id": "8:4887305825776856940",
+          "name": "totalInstallments",
+          "type": 6
+        },
+        {
+          "id": "9:1806775160804414656",
+          "name": "categoryId",
+          "type": 6
+        },
+        {
+          "id": "10:8549637747400365537",
+          "name": "lastPaidDate",
+          "type": 10
+        },
+        {
+          "id": "11:2604557757669051855",
+          "name": "payoutMonth",
+          "type": 6
+        },
+        {
+          "id": "12:4600531267549639092",
+          "name": "payoutAmount",
+          "type": 8
+        },
+        {
+          "id": "13:1681618879991694517",
+          "name": "targetAmount",
+          "type": 8
+        },
+        {
+          "id": "14:4107649403539885512",
+          "name": "targetDate",
+          "type": 10
+        },
+        {
+          "id": "15:6663994979895907448",
+          "name": "notes",
+          "type": 9
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "5:1555094556629939061",
+  "lastIndexId": "0:0",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [
+    3281973720443404669
+  ],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    8764028901417746731,
+    8886645500370484672
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

@@ -19,6 +19,6 @@ void customToastification(
     type: type,
     style: ToastificationStyle.fillColored,
     autoCloseDuration: const Duration(seconds: 3),
-    alignment: Alignment.bottomRight,
+    alignment: Alignment.topCenter,
   );
 }

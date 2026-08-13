@@ -23,9 +23,11 @@ import '../utils/auth_expired_exception.dart';
 /// and retry with the new token automatically.
 class AuthInterceptor extends QueuedInterceptor {
   final SecureStorageManager _storageManager;
-  final Dio _dio;
 
-  AuthInterceptor(this._storageManager, this._dio);
+  // Note: `_retryRequest` and `_refreshToken` build their own Dio instances
+  // internally to avoid interceptor loops, so we do not need to hold a
+  // reference to the outer Dio here.
+  AuthInterceptor(this._storageManager);
 
   @override
   void onRequest(

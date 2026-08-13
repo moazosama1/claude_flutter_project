@@ -15,19 +15,25 @@ abstract class AppColors {
     100: Color(0xFF323232),
   });
 
-  // Primary - #0087C0 (Blue)
-  static MaterialColor mainColor = const MaterialColor(0xFF324CF5, <int, Color>{
-    10: Color(0xFFd9f0f9),
-    20: Color(0xFFb3e1f3),
-    30: Color(0xFF8dd2ed),
-    40: Color(0xFF67c3e7),
-    50: Color(0xFF41b4e1),
-    60: Color(0xFF0087c0),
-    70: Color(0xFF006b99),
-    80: Color(0xFF004f72),
-    90: Color(0xFF00334b),
-    100: Color(0xFF001724),
+  // Primary - Modern indigo (#4F46E5 base, Tailwind indigo-600 family).
+  // The full 10→100 ramp are actual shades of the base — sub-shades used to
+  // be a mismatched cyan/blue family; unified for consistent tinting.
+  static MaterialColor mainColor = const MaterialColor(0xFF4F46E5, <int, Color>{
+    10: Color(0xFFEEF2FF),  // indigo-50
+    20: Color(0xFFE0E7FF),  // indigo-100
+    30: Color(0xFFC7D2FE),  // indigo-200
+    40: Color(0xFFA5B4FC),  // indigo-300
+    50: Color(0xFF818CF8),  // indigo-400
+    60: Color(0xFF6366F1),  // indigo-500
+    70: Color(0xFF4F46E5),  // indigo-600 (base)
+    80: Color(0xFF4338CA),  // indigo-700
+    90: Color(0xFF3730A3),  // indigo-800
+    100: Color(0xFF312E81), // indigo-900
   });
+
+  // Optional accent — modern violet, for gradients / secondary highlights.
+  static const Color accentViolet = Color(0xFF8B5CF6);   // violet-500
+  static const Color accentEmerald = Color(0xFF10B981);  // emerald-500 (money/positive)
 
   // Secondary - #647488 (Gray-blue)
   static MaterialColor black = const MaterialColor(0xFF647488, <int, Color>{
@@ -43,21 +49,37 @@ abstract class AppColors {
     100: Color(0xFF1c1d28),
   });
 
-  // Surface colors
-  static const Color surface = Color(0xFFF0F2F5);
-  static const Color surfaceContainerLowest = Color(0xFFFFFFFF);
-  static const Color surfaceContainerLow = Color(0xFFf3f5f7);
-  static const Color surfaceContainerHighest = Color(0xFFfdfdfd);
-  static const Color outlineVariant = Color(0xFFcecfd0);
-  static const Color splashBackground = Color(0xFFe3f2fd);
+  // -- Light-mode surfaces (Tailwind slate family; softer than pure white) -
+  static const Color surface = Color(0xFFF8FAFC);              // slate-50 (scaffold)
+  static const Color surfaceContainerLowest = Color(0xFFFFFFFF); // pure white (cards)
+  static const Color surfaceContainerLow = Color(0xFFF1F5F9);   // slate-100
+  static const Color surfaceContainerHighest = Color(0xFFFFFFFF);
+  static const Color outlineVariant = Color(0xFFE2E8F0);        // slate-200 (soft borders)
+  static const Color splashBackground = Color(0xFFEEF2FF);      // indigo-50 tint
 
-  static const Color gray = Color(0xFF647488);
-  static const Color red = Color(0xffCC1010);
-  static const Color green = Color(0xFF0F7F2A);
-  static const Color lightBackground = Color(0xFFF0F2F5);
-  static const Color yellow = Color(0xFFC8D444);
-  static const Color gray300 = Color(0xFFE0E0E0);
+  // -- Semantic (modern Tailwind palette) ---------------------------------
+  static const Color gray = Color(0xFF64748B);   // slate-500
+  static const Color red = Color(0xFFEF4444);    // red-500
+  static const Color green = Color(0xFF10B981);  // emerald-500
+  static const Color yellow = Color(0xFFF59E0B); // amber-500
+  static const Color info = Color(0xFF0EA5E9);   // sky-500
+
+  static const Color lightBackground = Color(0xFFF8FAFC);
+  static const Color gray300 = Color(0xFFE2E8F0);
   static const Color transparent = Colors.transparent;
+
+  // -- Dark theme palette (deep navy / black-blue family) -----------------
+  // Chosen so cards read as elevated against the scaffold (surface >
+  // surfaceElevated separation of ~6% lightness), and text stays legible
+  // without going pure white.
+  static const Color darkBackground = Color(0xFF0B1220);     // scaffold
+  static const Color darkSurface = Color(0xFF111A2E);        // sheets, base surface
+  static const Color darkSurfaceElevated = Color(0xFF1A2540); // cards, dialogs
+  static const Color darkFieldFill = Color(0xFF162037);      // input fills
+  static const Color darkOnSurface = Color(0xFFE2E8F0);      // primary text
+  static const Color darkOnSurfaceMuted = Color(0xFF94A3B8); // secondary text / hints
+  static const Color darkOutline = Color(0xFF2A3854);
+  static const Color darkShadow = Color(0xCC000000);         // slightly heavier shadow
 
   // -- Expenses module colours --------------------------------------------
   static const Color expenseOrange = Color(0xFFFF5722); // deepOrange

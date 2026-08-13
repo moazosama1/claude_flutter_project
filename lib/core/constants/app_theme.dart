@@ -8,7 +8,12 @@ abstract class AppTheme {
     colorScheme: colorSchemeLight,
     scaffoldBackgroundColor: AppColors.surface,
     surfaceColor: AppColors.surfaceContainerLowest,
+    cardColor: AppColors.surfaceContainerLowest,
+    fieldFillColor: null, // computed from primary + surface
     primaryTextColor: AppColors.black[100]!,
+    secondaryTextColor: null, // computed at 85% alpha of primary
+    hintColor: AppColors.gray.withValues(alpha: 0.6),
+    outlineColor: AppColors.outlineVariant,
     shadowColor: AppColors.black.withValues(alpha: 0.12),
     bottomNavElevation: 8,
   );
@@ -16,29 +21,43 @@ abstract class AppTheme {
   static ThemeData get darkTheme => _buildTheme(
     primaryColor: AppColors.mainColor,
     colorScheme: colorSchemeDark,
-    scaffoldBackgroundColor: AppColors.black,
-    surfaceColor: AppColors.black[50]!,
-    primaryTextColor: AppColors.white,
-    shadowColor: AppColors.black.withValues(alpha: 0.2),
+    scaffoldBackgroundColor: AppColors.darkBackground,
+    surfaceColor: AppColors.darkSurface,
+    cardColor: AppColors.darkSurfaceElevated,
+    fieldFillColor: AppColors.darkFieldFill,
+    primaryTextColor: AppColors.darkOnSurface,
+    secondaryTextColor: AppColors.darkOnSurfaceMuted,
+    hintColor: AppColors.darkOnSurfaceMuted.withValues(alpha: 0.7),
+    outlineColor: AppColors.darkOutline,
+    shadowColor: AppColors.darkShadow,
     bottomNavElevation: 0,
   );
 
   static ThemeData _buildTheme({
     required ColorScheme colorScheme,
     required Color primaryColor,
-
     required Color scaffoldBackgroundColor,
     required Color surfaceColor,
+    required Color cardColor,
     required Color primaryTextColor,
+    required Color hintColor,
+    required Color outlineColor,
     required Color shadowColor,
     required double bottomNavElevation,
+    Color? fieldFillColor,
+    Color? secondaryTextColor,
   }) {
-    // Using a high-opacity primary text color for secondary text to ensure readability in sunlight
-    // while maintaining a slight visual hierarchy.
-    final secondaryTextColor = primaryTextColor.withValues(alpha: 0.85);
+    final secondaryText =
+        secondaryTextColor ?? primaryTextColor.withValues(alpha: 0.85);
+    final resolvedFieldFill = fieldFillColor ??
+        Color.alphaBlend(
+          primaryColor.withValues(alpha: 0.04),
+          surfaceColor,
+        );
 
     return ThemeData(
       useMaterial3: true,
+      brightness: colorScheme.brightness,
       fontFamily: ConstKeys.cairoFont,
       scaffoldBackgroundColor: scaffoldBackgroundColor,
       colorScheme: colorScheme,
@@ -78,49 +97,49 @@ abstract class AppTheme {
         bodySmall: getTextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w400,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         bodyMedium: getTextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w400,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         bodyLarge: getTextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w500,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
 
         headlineSmall: getTextStyle(
           fontSize: 24,
           fontWeight: FontWeight.w600,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         headlineMedium: getTextStyle(
           fontSize: 28,
           fontWeight: FontWeight.w700,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         headlineLarge: getTextStyle(
           fontSize: 32,
           fontWeight: FontWeight.w700,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
 
         labelSmall: getTextStyle(
           fontSize: 14,
           fontWeight: FontWeight.w500,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         labelMedium: getTextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w500,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
         labelLarge: getTextStyle(
           fontSize: 18,
           fontWeight: FontWeight.w600,
-          color: secondaryTextColor,
+          color: secondaryText,
         ),
       ),
 
@@ -174,29 +193,20 @@ abstract class AppTheme {
       // Input Fields
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
-        fillColor: Color.alphaBlend(
-          primaryColor.withValues(alpha: 0.04),
-          surfaceColor,
-        ),
+        fillColor: resolvedFieldFill,
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
           vertical: 16,
         ),
-        hintStyle: getTextStyle(
-          color: AppColors.gray.withValues(alpha: 0.6),
-          fontSize: 16,
-        ),
+        hintStyle: getTextStyle(color: hintColor, fontSize: 16),
         labelStyle: getTextStyle(color: primaryTextColor, fontSize: 16),
         floatingLabelStyle: getTextStyle(
           color: AppColors.mainColor,
           fontSize: 14,
         ),
         errorStyle: getTextStyle(color: AppColors.red, fontSize: 14),
-        border: getOutlineInputBorder(color: AppColors.outlineVariant),
-        enabledBorder: getOutlineInputBorder(
-          color: AppColors.outlineVariant,
-          width: 1.1,
-        ),
+        border: getOutlineInputBorder(color: outlineColor),
+        enabledBorder: getOutlineInputBorder(color: outlineColor, width: 1.1),
         focusedBorder: getOutlineInputBorder(color: primaryColor, width: 1.8),
         errorBorder: getOutlineInputBorder(color: AppColors.red),
         focusedErrorBorder: getOutlineInputBorder(
@@ -209,7 +219,7 @@ abstract class AppTheme {
 
       // Dialogs
       dialogTheme: DialogThemeData(
-        backgroundColor: surfaceColor,
+        backgroundColor: cardColor,
         surfaceTintColor: Colors.transparent,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         titleTextStyle: getTextStyle(
@@ -226,7 +236,7 @@ abstract class AppTheme {
 
       // Bottom Sheet
       bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: surfaceColor,
+        backgroundColor: cardColor,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
@@ -235,7 +245,7 @@ abstract class AppTheme {
 
       // Cards
       cardTheme: CardThemeData(
-        color: AppColors.surfaceContainerLowest,
+        color: cardColor,
         surfaceTintColor: Colors.transparent,
         elevation: 2,
         shadowColor: shadowColor,
@@ -245,7 +255,7 @@ abstract class AppTheme {
 
       // Dividers
       dividerTheme: DividerThemeData(
-        color: AppColors.outlineVariant.withValues(alpha: 0.1),
+        color: outlineColor.withValues(alpha: 0.3),
         thickness: 1,
         space: 1,
       ),
@@ -311,15 +321,20 @@ ColorScheme colorSchemeLight = ColorScheme(
   onSurface: AppColors.black[100]!,
 );
 
+// Dark scheme — deep navy family. `primary` stays the brand color so buttons
+// and highlights pop against the dark background; `surface` is the base card
+// color (matches `cardColor` passed into _buildTheme) so Material widgets that
+// derive their fill from the color scheme look consistent.
 ColorScheme colorSchemeDark = ColorScheme(
   brightness: Brightness.dark,
   primary: AppColors.mainColor,
-  onPrimary: AppColors.surfaceContainerHighest,
-  secondary: AppColors.surfaceContainerLowest,
-  onSecondary: AppColors.black,
-  tertiary: AppColors.splashBackground,
+  onPrimary: AppColors.darkOnSurface,
+  secondary: AppColors.mainColor,
+  onSecondary: AppColors.darkOnSurface,
+  tertiary: AppColors.mainColor,
   error: AppColors.red,
-  onError: AppColors.surfaceContainerLowest,
-  surface: AppColors.black,
-  onSurface: AppColors.surfaceContainerLowest,
+  onError: AppColors.darkOnSurface,
+  surface: AppColors.darkSurface,
+  onSurface: AppColors.darkOnSurface,
+  outline: AppColors.darkOutline,
 );

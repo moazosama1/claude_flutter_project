@@ -30,7 +30,7 @@ abstract class AppMeasurements {
   static const double iconMedium = 24;
   static const double iconLarge = 32;
 
-  static const double bottomNavBarHeight = 80;
+  static const double bottomNavBarHeight = 56;
   static const double quickPickHeight = 160;
   static const double heroImageHeight = 350;
   static const double heroImageHeightLarge = 400;
@@ -41,4 +41,9 @@ abstract class AppMeasurements {
 
   static const double padding12 = 12;
   static const double padding64 = 64;
+
+  // Sizes for icon/color picker chips (Categories form, similar pickers).
+  static const double pickerChipSize = 44;
+  static const double pickerChipIconSize = 22;
+  static const double pickerSelectionBorder = 3;
 }

@@ -21,7 +21,7 @@ abstract class AppModules {
     final dio = Dio(provideBaseOptions(EndPoints.baseUrl));
     dio.interceptors.addAll([
       providePrettyDioLogger,
-      AuthInterceptor(storageManager, dio),
+      AuthInterceptor(storageManager),
     ]);
     return dio;
   }

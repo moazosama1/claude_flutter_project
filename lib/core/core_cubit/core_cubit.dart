@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/material.dart' show ThemeMode;
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -25,6 +26,10 @@ class CoreCubit extends Cubit<CoreState> {
         _toggleLocale();
       case ChangeLocaleCoreEvent():
         _changeLocale(event.locale);
+      case ChangeThemeModeCoreEvent():
+        _changeThemeMode(event.mode);
+      case ChangeCurrencyCoreEvent():
+        _changeCurrency(event.currencyCode);
       case LogoutCoreEvent():
         // No-op until real auth is added. Kept so the sealed switch stays exhaustive.
         break;
@@ -32,7 +37,7 @@ class CoreCubit extends Cubit<CoreState> {
   }
 
   Future<void> _init() async {
-    await Future.wait([_loadLocale()]);
+    await Future.wait([_loadLocale(), _loadThemeMode(), _loadCurrency()]);
   }
 
   Future<void> _loadLocale() async {
@@ -48,7 +53,6 @@ class CoreCubit extends Cubit<CoreState> {
 
   Future<void> _changeLocale(Locale locale) async {
     if (!supportedLocales.contains(locale)) return;
-
     await _storageManager.setString(
       key: ConstKeys.kLocale,
       value: locale.languageCode,
@@ -61,6 +65,33 @@ class CoreCubit extends Cubit<CoreState> {
     final nextIndex = (currentIndex + 1) % supportedLocales.length;
     final nextLocale = supportedLocales[nextIndex];
     await _changeLocale(nextLocale);
+  }
+
+  Future<void> _loadThemeMode() async {
+    final stored = await _storageManager.getString(key: ConstKeys.kThemeMode);
+    final mode = ThemeMode.values.firstWhere(
+      (m) => m.name == stored,
+      orElse: () => ThemeMode.system,
+    );
+    emit(state.copyWith(themeMode: mode));
+  }
+
+  Future<void> _changeThemeMode(ThemeMode mode) async {
+    await _storageManager.setString(
+      key: ConstKeys.kThemeMode,
+      value: mode.name,
+    );
+    emit(state.copyWith(themeMode: mode));
+  }
+
+  Future<void> _loadCurrency() async {
+    final code = await _storageManager.getString(key: ConstKeys.kCurrency);
+    emit(state.copyWith(currencyCode: code ?? 'USD'));
+  }
+
+  Future<void> _changeCurrency(String code) async {
+    await _storageManager.setString(key: ConstKeys.kCurrency, value: code);
+    emit(state.copyWith(currencyCode: code));
   }
 
   List<Locale> get supportedLocales =>
